@@ -1,4 +1,4 @@
-# README
+# Ruby-On-Rails CRUD
 
 Here's a step-by-step guide on how to create a simple CRUD app using Ruby on Rails along with some CSS styling.
 
