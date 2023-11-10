@@ -1,9 +1,33 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[ show edit update destroy activate deactivate], unless: -> { params[:id] == 'active' || params[:id] == 'inactive' }
+
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+      @tasks = Task.all
+      @title = "All Tasks"
+  end
+
+  def active
+    @tasks = Task.where(active: true)
+    @title = "Active Tasks"
+    render :index
+  end
+
+  def inactive
+    @tasks = Task.where(active: false)
+    @title = "Inactive Tasks"
+    render :index
+  end
+
+  def activate
+    @task.update(active: true)
+    redirect_to tasks_url, notice: "Task was successfully activated."
+  end
+
+  def deactivate
+    @task.update(active: false)
+    redirect_to tasks_url, notice: "Task was successfully deactivated."
   end
 
   # GET /tasks/1 or /tasks/1.json
